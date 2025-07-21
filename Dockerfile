@@ -1,14 +1,17 @@
-# Use a Java 17 base image
+# Etapa 1: build
+FROM gradle:7.6.1-jdk17 AS build
+
+WORKDIR /home/gradle/project
+COPY . .
+RUN gradle clean build --no-daemon
+
+# Etapa 2: runtime
 FROM openjdk:17-jdk-slim
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the jar file into the container
-COPY build/libs/Codecrumbs-1.0-SNAPSHOT.jar app.jar
+COPY --from=build /home/gradle/project/build/libs/Codecrumbs-1.0-SNAPSHOT.jar app.jar
 
-# Expose the port your app runs on (change if needed)
 EXPOSE 8080
 
-# Start the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "app.jar"]
