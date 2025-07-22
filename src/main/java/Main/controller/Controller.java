@@ -5,12 +5,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "https://codecrumbs22.netlify.app")
 public class Controller {
 
+    // GET está OK para pequenas queries
     @GetMapping("/isValid")
     public boolean isValid(@RequestParam String input) {
-        final ValidParentheses validator = new ValidParentheses();
+        ValidParentheses validator = new ValidParentheses();
         return validator.isValid(input);
     }
 }

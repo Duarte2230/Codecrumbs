@@ -6,7 +6,7 @@ function ParenthesesValidator() {
 
     const handleCheck = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/isValid?input=${encodeURIComponent(input)}`);
+            const response = await fetch(`https://codecrumbs.onrender.com/api/isValid?input=${encodeURIComponent(input)}`);
             const isValid = await response.json();
             setResult(isValid);
         } catch (error) {
